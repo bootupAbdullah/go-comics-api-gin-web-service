@@ -40,4 +40,3 @@ The purpose of this project is to get hands-on practice with:
     "price": 20.0
   }
 ]
-`
