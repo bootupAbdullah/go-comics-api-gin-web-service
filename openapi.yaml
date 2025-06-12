@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Comics API
+  version: 1.0.0
+  description: A simple API to manage comic books.
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /comics:
+    get:
+      summary: Get all comics
+      responses:
+        '200':
+          description: A list of comics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comic'
+    post:
+      summary: Add a new comic
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comic'
+      responses:
+        '201':
+          description: Comic created
+
+  /comics/{id}:
+    get:
+      summary: Get a comic by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comic found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comic'
+        '404':
+          description: Comic not found
+
+components:
+  schemas:
+    Comic:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        issue:
+          type: string
+        writer:
+          type: string
+        artist:
+          type: string
+        price:
+          type: number
+          format: float
