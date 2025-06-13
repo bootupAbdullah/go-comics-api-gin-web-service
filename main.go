@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/gin-contrib/cors"
 )
 
 // comic represents data about a comic book. !! This represents the kind of information that can be stored/tracked by this API. Similar to database schema.
@@ -36,7 +38,7 @@ func getComics(c *gin.Context) {
 
 // <-------------------------------------------- ROUTE: POST ------------------------------------->
 //postComics adds a comic from JSON received in the request of body.
-	 {
+	func postComics(c *gin.Context){
 	var newComic comic
 
 	// Call BindJSON to bind the received JSON to
@@ -73,6 +75,7 @@ func getComicByID(c *gin.Context) {
 // It uses gin.Default() to initialize the router and associates the /comics path with the getComics handler.
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.GET("/comics", getComics)
 	router.GET("/comics/:id", getComicByID)
 	router.POST("/comics", postComics)
